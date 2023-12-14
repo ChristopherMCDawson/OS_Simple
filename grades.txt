@@ -1,0 +1,54 @@
+#Christopher DECARIE_Dawson Student number 040718315
+#CST8102 310-311
+
+# the script will request four grades from four different objests and
+# then add all four values together and then convert it to a letter grade.
+# then output all the inputs and the final mark.
+
+echo -ne "  Enter Assignment mark (0-40):";read Assignment
+echo -ne "  Enter Test 1 mark (0-15):";read Test1
+echo -ne "  Enter Test 2 mark (0-15):";read Test2
+echo -ne "  Enter Final exam mark (0-30):";read Final
+
+Sum=$(($Assignment+$Test1+$Test2+$Final))
+
+if [ $Sum -le 49 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Letter Grade is F\n"
+elif [ $Sum -ge 50 ] && [ $Sum -le 52 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is D-\n"
+elif [ $Sum -ge 53 ] && [ $Sum -le 56 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is D\n"
+elif [ $Sum -ge 57 ] && [ $Sum -le 59 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is D+\n"
+elif [ $Sum -ge 60 ] && [ $Sum -le 62 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is C+\n"
+elif [ $Sum -ge 63 ] && [ $Sum -le 66 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is C\n"
+elif [ $Sum -ge 67 ] && [ $Sum -le 69 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is C+\n"
+elif [ $Sum -ge 70 ] && [ $Sum -le 72 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is B-\n"
+elif [ $Sum -ge 73 ] && [ $Sum -le 76 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is B\n"
+elif [ $Sum -ge 77 ] && [ $Sum -le 79 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is B+\n"
+elif [ $Sum -ge 80 ] && [ $Sum -le 84 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Grade is A-\n"
+elif [ $Sum -ge 85 ] && [ $Sum -le 89 ]
+        then
+        prinf "\nYour Final numeric grade is "$Sum", Your Final Grade is A\n"
+elif [ $Sum -ge 90 ] && [ $Sum -le 100 ]
+        then
+        printf "\nYour Final numeric grade is "$Sum", Your Final Letter Grade is A+\n"
+fi

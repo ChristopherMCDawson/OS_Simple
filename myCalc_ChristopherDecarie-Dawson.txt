@@ -1,0 +1,255 @@
+#!/bin/bash
+
+PATH=/bin:/usr/bin ; export PATH
+umask 022
+
+
+# Lab 9 - Basic Calculator                   
+# Christopher Decarie-Dawson                 
+# CST8102-312 (GNU/Linux)                     
+# Script Name - mycalc.sh                    
+# This script handle some basic calculations 
+
+
+
+NUM1=0
+NUM2=0
+CHOICE=n
+
+# Main Menu:
+# It gives the options the user is allowed to choose from.
+# If the user chooses anything that is not given, user will
+# be asked to retry.
+#
+
+function firstmenu ()
+	{
+	while true
+	do
+		echo "Menu 1"
+		echo " "
+		echo "C.) Calculation"
+		echo "X.) Exit"
+		echo " "
+		echo -e "What would you like to do? \c"; read CHOICE
+
+	if [[ $CHOICE == "X" || $CHOICE == "x" ]]; then
+		clear
+			echo "exiting program soon ..."
+		sleep 1
+		clear
+
+	exit 0
+
+	elif [[ $CHOICE == "c" || $CHOICE == "C" ]]; then
+		clear
+		secondmenu
+	else
+			echo "Invalid option. Please choose an option given above."
+		sleep 1
+	fi
+	done
+	}
+
+# Second Menu:
+# This menu is in charge of deciding what the first number of the equation will be.
+# integer number that the user wants to add or subtract with.
+# The case statement checks if the user pressed 'x' or if the input is an integer.
+# If it isn't an integer number that the user inputs, it'll give the user an error
+# message. If the user presses 'x', it'll exit out of the program.
+#
+
+function secondmenu()
+	{
+	while true
+	do
+
+		echo -e "Please enter an integer number or X to exit: \c"; read NUM1
+	case $NUM1 in x|X)
+
+	clear
+
+		echo "Closing program soon ..."
+	exit 0;; ''|*[!0-9]*)
+
+		echo "Wrong input. You can only input integer values only.";; *)
+
+	clear
+	thirdmenu;;
+
+	esac
+	done
+	}
+
+# Third Menu:
+# This menu determines the operator of the equation.
+# The user can choose weather to add or subtract.
+# If the user inputs something else than an add or subtract,
+# it'll give the user an error message and prompt them again.
+# Depending on what they choose, the rest of the equation will go to
+# the add or subtraction function.
+# The user can also choose to quit the program.
+#
+
+function thirdmenu()
+	{
+	while true
+	do
+
+			echo "+.) Add"
+			echo "-.) Subtract"
+			echo "X.) Exit"
+			echo " "
+			echo -e "Please choose an operation or X to exit: \c"; read OPERATION
+
+	if [[ "$OPERATION" = "+" ]]; then
+			echo ""
+			echo "You've chose addition."
+		clear
+	
+		add
+
+	elif [[ "$OPERATION" = "-" ]]; then
+			echo ""
+			echo "You've chose subtract."
+		clear
+
+		subtract
+
+	elif [[ $OPERATION = "x" || $OPERATION = "X" ]]; then
+		clear
+			echo "Closing program soon ..."
+			echo ""
+	exit 0
+	else
+			echo ""
+			echo "Invalid options. Please select an option given above."
+			echo ""
+	fi
+	done
+	}
+
+# Add Function:
+# If the user does choose to add, it'll go through this function.
+# It'll ask the user what their second and final number is.
+# The case statement checks if the integer is a number or not
+# If it is not a number, it'll display an error message and restart
+# It also gives the option of exiting out of the program too.
+# After that, the program will add up the numbers and exit out of the program.
+#
+
+function add()
+	{
+	while true
+	do
+			echo -e "Please choose another integer number or X to exit: \c";
+	read NUM2
+	case $NUM2 in x|X)
+	clear
+
+			echo "Closing program soon ..."
+	exit 0;; ''|*[!0-9]*)
+			echo "Invalid input. This program only allows
+	integer values.";; *)
+
+	((SUM = $NUM1 + $NUM2))
+			echo " "
+			echo "mycalc $NUM1 + $NUM2"
+			echo "The sum of $NUM1 plus $NUM2 equals $SUM."
+	exit 0;;
+	esac
+	done
+	}
+
+# Subtraction Function:
+# If the user chooses to subtract as the operator, it'll bring the user
+# to this method.
+# It'll prompt the user to choose the second and the final number.
+# The case statement checks if it is an integer. If it's not an integer,
+# then it'll send an error message to the user.
+# They are also allowed to exit out of the program too.
+# After the user inputs the second number, it'll add the two numbers together
+# and give the total to the user before exiting out of the program.
+#
+
+function subtract()
+	{
+	while true
+	do
+			echo -e "Please choose another integer number or X to exit: \c";
+
+	read NUM2
+	case $NUM2 in x|X)
+
+	clear
+			echo "Closing program soon ..."
+	exit 0;; ''|*[!0-9]*)
+			echo "Wrong input. Integers only.";; *)
+
+	((SUM = $NUM1 - $NUM2))
+			echo ""
+			echo "mycalc $NUM1 - $NUM2"
+			echo "The sum of $NUM1 subtracted $NUM2 equals $SUM."
+	exit 0;;
+	esac
+	done
+	}
+
+# This if-elif-else statement determines if there are any parameters when the
+# script being called.
+# The case statement checks if the user inputted an integer. If the user didn't
+#input an integer,
+
+# it'll give the user an error message and prompt the user to enter again.
+# If there are three parameters, it'll calculate the parameters and give the
+# answer. It'll then exit out of the program.
+# If there are more than three or less than three, it'll give the user an error
+# and exit out of the program.
+# if there are no parameters, the user will go straight to the mainmenu.
+#
+
+while true
+	do
+	if [[ $# -eq 3 ]]; then
+
+	case $1 in *[!0-9]*)
+		echo "Invalid input. Integer numbers only."
+		exit 0 ;;
+	esac
+
+	case $3 in *[!0-9]*)
+		echo "Invalid input. Integer numbers only."
+		exit 0 ;;
+	esac
+
+	case $2 in +)
+		((SUM=$1+$3))
+		echo "The sum of $1 plus $3 equals $SUM."
+	
+	sleep 2
+	exit 0 ;; -)
+	((SUM=$1-$3))
+		echo "The sum of $1 subtracted by $3 equals $SUM."
+
+	sleep 2
+	exit 0 ;; *)
+
+		echo "Invalid input. add or subtraction numbers only."
+
+	exit 0 ;;
+	esac
+
+	elif [[ $# -ge 4 ]]; then
+		echo "Invalid input. Your math equation is too long. The program will only allow three parameters."
+	exit 0
+
+	elif [[ $# -le 2 && $# -gt 0 ]]; then
+		echo "Invalid input. Your math equation is too short. The program will only allow three parameters."
+	exit 0
+
+	else
+
+firstmenu
+
+fi
+done
